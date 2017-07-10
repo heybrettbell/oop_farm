@@ -16,6 +16,7 @@ class Farm
   @@all_fields.each do |commodity|
     field_type = commodity.type
     field_size = commodity.size
+    puts ""
     puts "The #{field_type} field is #{field_size} acres in size."
     end
   end
@@ -23,9 +24,16 @@ class Farm
   def self.total_food_produced
     sum = 0
     @@all_fields.map do |commodity|
+    field_type = commodity.type
+    field_yield = commodity.food_produced
     sum += commodity.food_produced
+    puts "The #{field_type.downcase} field has been harvested. #{field_yield} food produced."
     end
-    puts "The farm has produced a total of #{sum} foodstuffs"
+    puts ""
+    puts ""
+    puts "==================================================="
+    puts "This harvest produced a total of #{sum} foodstuffs."
+    puts "==================================================="
   end
 
   def self.total_status
@@ -33,8 +41,8 @@ class Farm
     food_to_date = commodity.food_produced
     @@food_total << food_to_date
     end
-
-    puts @@food_total.sum
+    puts ""
+    puts "Your farm has produced a total of #{@@food_total.sum} foodstuffs to date."
   end
 
 end
@@ -44,7 +52,6 @@ class Field < Farm
 attr_accessor :type, :size, :capacity, :food_produced
 
   def initialize(type, size, capacity)
-    # binding.pry
     @type            = type
     @size            = size
     @capacity        = capacity
@@ -61,22 +68,21 @@ attr_accessor :type, :size, :capacity, :food_produced
 
 end
 
-class Corn < Field
+# class Corn < Field
+#
+#   def initialize(type, size, capacity)
+#     super
+#     @type = "corn"
+#     @capacity = 20
+#   end
+# end
+#
+#
+# class Wheat < Field
+#
+#   def initialize(size)
+#     @type = "wheat"
+#     @capacity = 30
+#   end
 
-  def initialize(size)
-    super
-    @type = "corn"
-    @capacity = 20
-  end
-end
-
-
-class Wheat < Field
-
-  def initialize(size)
-    super
-    @type = "wheat"
-    @capacity = 30
-  end
-
-end
+# end
